@@ -70,5 +70,16 @@ ExpressionTerm.prototype.setNegative = function () {
 	this.power1polynomial.setNegative();
 }
 
+ExpressionTerm.prototype.print = function () {
+	if (this.power1polynomial) {
+		this.power1polynomial.print();
+	}
+	if (this.polynomialSubterms) {
+		for (let i = 0; i < this.polynomialSubterms.length; i++) {
+			this.polynomialSubterms[i].print();
+		}
+	}
+}
+
 
 module.exports = ExpressionTerm;

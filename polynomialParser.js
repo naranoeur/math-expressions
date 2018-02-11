@@ -6,11 +6,11 @@ const { parseTerm, parseSpecialTerm } = require('./termParser');
 function parsePolynomial (str, history = []) {
   // console.log(str);
   if (str.length == 0) {
-    return null;
+    throw new Error("Error: something is not right");
   }
   let lastCh = str[str.length - 1];
   if (isOperator(lastCh)) {
-    return null;
+    throw new Error("Error: an operator before parenthesis");
   }
 
   let terms = [];

@@ -24,10 +24,10 @@ Term.prototype.same = function (t) {
 	return true;
 }
 
-Term.prototype.toExponent = function (exp) {
-	this.coef = Math.pow(this.coef, exp);
+Term.prototype.toExponent = function (exponent) {
+	this.coef = Math.pow(this.coef, exponent);
 	for (let key in this.subterms) {
-		this.subterms[key] *= exp;
+		this.subterms[key] *= exponent;
 	}
 }
 

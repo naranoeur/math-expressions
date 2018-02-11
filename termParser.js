@@ -12,8 +12,7 @@ function tokenizeTerm (str) {
   for (let i = 0; i < str.length; i++) {
     if (str[i] == '*' || str[i] == '/') {
       if (buffer.length == 0) {
-        console.log("Invalid subterm expression: two operators * or / next to each other");
-        return null;
+        throw new Error("Error: two operators * or / next to each other");
       } else {
         subterms.push({operator, subterm: buffer});
         buffer = "";
@@ -60,7 +59,7 @@ function constructTermFromSubterms (tokens) {
 function parseTerm (str) {
  // console.log(str);
  if (str.length == 0 || isOperator(str[0]) || isOperator(str[str.length - 1])) {
-   return null;
+   throw new Error("Error: syntax error");
  }
 
  let subterms = tokenizeTerm(str);
@@ -76,7 +75,7 @@ function parseTerm (str) {
 function parseSpecialTerm (str, history) {
  // console.log(str);
  if (str.length == 0 || isOperator(str[0]) || isOperator(str[str.length - 1])) {
-   return null;
+   throw new Error("Error: syntax error");
  }
 
  // tokenize the string into subterms based of *

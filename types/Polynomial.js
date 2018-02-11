@@ -12,16 +12,17 @@ function Polynomial (t) {
 
 
 Polynomial.prototype.print = function () {
+	console.log("pol to power of ", this.exp);
 	for (let i = 0; i < this.terms.length; i++) {
 		console.log(this.terms[i].coef, this.terms[i].subterms);
 	}
 }
 
-Polynomial.prototype.toExponent = function (exp) {
-	this.exp *= exp;
+Polynomial.prototype.toExponent = function (exponent) {
 	if (this.terms.length == 1) {
-		this.terms[0].toExponent(this.exponent);
-		this.exponent = 1;
+		this.terms[0].toExponent(exponent);
+	} else {
+		this.exp *= exponent;
 	}
 }
 

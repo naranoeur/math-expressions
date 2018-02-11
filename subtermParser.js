@@ -17,8 +17,7 @@ function splitUpSubterm (str) {
 		coef = str.substring(0, index);
 		exp = str.substr(index + 1);
 		if (exp.length == 0 || coef.length == 0) {
-			console.log("exponent and coefficients cannot be empty string");
-			return null;
+			throw new Error("Error: an exponent or a coefficients is missing");
 		}
 	}
 	return {coef, exp};
@@ -35,8 +34,7 @@ function parseSubterm (str) {
   // Exponent must be a number for now
   exp = Number(exp);
   if(isNaN(exp)) {
-    console.log("exponents must be numeric");
-    return null;
+		throw new Error("Error: the exponents must be numeric");
   }
 
   if (isVariable(coef)) {
@@ -46,8 +44,7 @@ function parseSubterm (str) {
   coef = Number(coef);
 
   if (isNaN(coef)) {
-    console.log("Coefficient must be either a variable or a number");
-    return null;
+		throw new Error("Error: syntax error");
   }
 
   return new Subterm(coef, exp);
@@ -72,14 +69,12 @@ function parseSpecialSubterm (str, specialArr) {
 		if (isPolynomialNumber(exp)) {
 			exp = getPolynomialNumber(exp);
 		} else {
-			console.log("invalid exponent");
-			return null;
+			throw new Error("Error: invalid exponent");
 		}
 	} else if (isNumber(exp)) {
 		exp = Number(exp);
 	} else {
-		console.log("invalid exponent");
-		return null;
+		throw new Error("Error: invalid exponent");
 	}
 
 	// handle coefficient
@@ -89,11 +84,8 @@ function parseSpecialSubterm (str, specialArr) {
 
 		let indx = isSpecial(coef);
 		coef = specialArr[indx];
-		console.log(coef instanceof Polynomial);
 		if (!coef.isPolynomial) {
-			console.log(coef);
-			console.log("erm dude try simplifying");
-			return null;
+			throw new Error("Error: please try simplifying first");
 		}
 		coef.toExponent(exp);
 		return coef;
@@ -112,10 +104,7 @@ function parseSpecialSubterm (str, specialArr) {
 		return new Polynomial([term]);
 
 	} else {
-
-		console.log("invalid coefficient");
-		return null;
-
+		throw new Error("Error: syntax error");
 	}
 
 }
@@ -184,8 +173,6 @@ function isSpecial (s) {
 function isNumber (s) {
 	return !isNaN(Number(s));
 }
-
-// console.log(parseSubterm('x^2'));
 
 module.exports = {
 	parseSubterm,

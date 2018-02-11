@@ -70,6 +70,12 @@ function floatCmpr (x, y) {
 
 // Tokenizes string based on parenthesis
 function parseExpression (str) {
+
+	// check for special character '@'
+	if (str.indexOf('@') >= 0) {
+		throw new Error("Error: ");
+	}
+
 	// remove spaces
 	str = removeSpaces(str);
 
@@ -89,7 +95,7 @@ function parseExpression (str) {
         str = str.substring(0,start) + placeholder + str.substr(i + 1);
         i = start + placeholder.length;
       } else {
-        return null;
+				throw new Error("Error: unbalanced parenthesis");
       }
     } else {
       i++;
@@ -97,7 +103,7 @@ function parseExpression (str) {
   }
 	pols.push(str);
   if (stack.length > 0 || pols.length == 0) {
-    return null;
+    throw new Error("Error: unbalanced parenthesis");
   }
 
 	// parse each term
@@ -109,17 +115,21 @@ function parseExpression (str) {
     // Simplify a bit... Note if student makes expression too complicated, it will not get parsed correctly
     if (pols[i].length > 1) {
       console.log("hmm try simplifying");
-      return null;
+			throw new Error("Error: please try simplifying first.");
     } else if (pols[i].length == 0) {
       console.log("hmm something's not right");
-      return null;
+			throw new Error("Error: something's not right.");
     }
     if (pols[i][0].isExpressionTerm && pols[i][0].power1polynomial && !pols[i][0].polynomialSubterms) {
       pols[i] = pols[i][0].power1polynomial;
     }
 	}
-
-	pols[pols.length - 1].print();
+  if (pols[pols.length - 1].isPolynomial) {
+    pols[pols.length - 1].print();
+  } else {
+    pols[pols.length - 1][0].print();
+  }
+	//pols[pols.length - 1].print();
   //console.log(pols[pols.length - 1]);
 }
 
@@ -130,7 +140,7 @@ function removeSpaces (s) {
 
  //parseExpression('(5*x^2 + 1) + x^3 + 1');
 // parseExpression('2*(x + x^3)');
-parseExpression('5*(x^3)^2');
+
 
 // let pol1 = parsePolynomial("5");
 // let pol2 = parsePolynomial("x^3 + 2");
@@ -142,3 +152,5 @@ parseExpression('5*(x^3)^2');
 // console.log( parseTerm('2'));
 
 // console.log(parseSubterm("3^2"));
+
+module.exports = parseExpression;
