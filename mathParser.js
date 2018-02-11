@@ -114,10 +114,16 @@ function parseExpression (str) {
 
     // Simplify a bit... Note if student makes expression too complicated, it will not get parsed correctly
     if (pols[i].length > 1) {
-      console.log("hmm try simplifying");
-			throw new Error("Error: please try simplifying first.");
+			for (let j = 0; j < pols[i].length; j++) {
+				if (this.polynomialSubterms && this.polynomialSubterms.length > 0) {
+					throw new Error("Error: please try simplifying first.");
+				}
+			}
+			for (let j = 1; j < pols[i].length; j++) {
+				pols[i][0].addPower1Pols(pols[i][j]);
+			}
+			pols[i] = [pols[i][0]];
     } else if (pols[i].length == 0) {
-      console.log("hmm something's not right");
 			throw new Error("Error: something's not right.");
     }
     if (pols[i][0].isExpressionTerm && pols[i][0].power1polynomial && !pols[i][0].polynomialSubterms) {

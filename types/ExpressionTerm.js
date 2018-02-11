@@ -70,6 +70,10 @@ ExpressionTerm.prototype.setNegative = function () {
 	this.power1polynomial.setNegative();
 }
 
+ExpressionTerm.prototype.addPower1Pols = function (t2) {
+	this.power1polynomial.add(t2.power1polynomial);
+}
+
 ExpressionTerm.prototype.print = function () {
 	if (this.power1polynomial) {
 		this.power1polynomial.print();

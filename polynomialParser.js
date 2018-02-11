@@ -46,7 +46,7 @@ function parsePolynomial (str, history = []) {
 	for (let i = 0; i < terms.length; i++) {
 		if (terms[i].buffer.indexOf('@') < 0) {
 			let term = parseTerm(terms[i].buffer);
-			term.coef *= operator;
+			term.coef *= terms[i].operator;
 			pol.terms.push(term);
 		} else {
 			special.push(terms[i]);

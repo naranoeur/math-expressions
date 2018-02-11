@@ -1,10 +1,11 @@
 var parseExpression = require('./mathParser');
 
 try {
-  parseExpression('x-2');
+  parseExpression('sin(t^2 + 3)');
 }
 catch (err) {
    console.log(err.message);
+   //console.log(err);
 }
 
 //parseExpression('(5*x^2 + 1) + x^3 + 1');
